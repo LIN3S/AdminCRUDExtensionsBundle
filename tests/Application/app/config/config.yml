@@ -55,17 +55,17 @@ lin3s_admin:
                 new:
                     type: crud_new
                     options:
-                        name: lin3s_admin.action.new
+                        name: lin3s_admin_crud.action.new
                         form: Tests\Application\ExampleBundle\Form\Type\ProductType
                 edit:
                     type: crud_edit
                     options:
-                        name: lin3s_admin.action.edit
+                        name: lin3s_admin_crud.action.edit
                         form: Tests\Application\ExampleBundle\Form\Type\ProductType
                 delete:
                     type: crud_delete
                     options:
-                        name: lin3s_admin.action.delete
+                        name: lin3s_admin_crud.action.delete
             list:
                 fields:
                     id:

@@ -11,12 +11,14 @@
     }
   ],
   "require": {
-    "lin3s/admin-bundle": "^0.5"
+    "lin3s/admin-bundle": "dev-master"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^1.11"
   },
   "scripts": {
     "cs": [
-      "php-cs-fixer fix --config-file=.php_cs",
-      "php-cs-fixer fix --config-file=.phpspec_cs"
+      "vendor/bin/php-cs-fixer fix --config-file=.php_cs"
     ]
   },
   "autoload": {
