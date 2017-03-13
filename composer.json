@@ -1,0 +1,31 @@
+{
+  "name": "lin3s/admin-crud-extension-bundle",
+  "description": "CRUD extension for LIN3S-Admin",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "LIN3S",
+      "email": "info@lin3s.com",
+      "homepage": "https://lin3s.com"
+    }
+  ],
+  "require": {
+    "lin3s/admin-bundle": "^0.5"
+  },
+  "scripts": {
+    "cs": [
+      "php-cs-fixer fix --config-file=.php_cs",
+      "php-cs-fixer fix --config-file=.phpspec_cs"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "LIN3S\\AdminCRUDExtensionsBundle\\": "src/LIN3S/AdminCRUDExtensionsBundle/",
+      "Tests\\Application\\": "tests/Application/src/"
+    },
+    "exclude-from-classmap": [
+      "/spec/"
+    ]
+  }
+}

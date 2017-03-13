@@ -1,0 +1,39 @@
+# This file is part of the Admin Bundle.
+#
+# Copyright (c) 2015-2016 LIN3S <info@lin3s.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+# @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+
+services:
+    lin3s_admin_crud_extension.action.type.new:
+        class: LIN3S\AdminCRUDExtensionsBundle\Action\NewActionType
+        arguments:
+            - '@lin3s_admin.form.handler'
+            - '@twig'
+            - '@session'
+            - '@router'
+        tags:
+            - { name: 'lin3s_admin.action', alias: crud_new }
+
+    lin3s_admin_crud_extension.action.type.edit:
+        class: LIN3S\AdminCRUDExtensionsBundle\Action\EditActionType
+        arguments:
+            - '@lin3s_admin.form.handler'
+            - '@doctrine.orm.default_entity_manager'
+            - '@twig'
+            - '@session'
+        tags:
+            - { name: 'lin3s_admin.action', alias: crud_edit }
+
+    lin3s_admin_crud_extension.action.type.delete:
+        class: LIN3S\AdminCRUDExtensionsBundle\Action\DeleteActionType
+        arguments:
+            - '@router'
+            - '@doctrine.orm.default_entity_manager'
+            - '@twig'
+            - '@session'
+        tags:
+            - { name: 'lin3s_admin.action', alias: crud_delete }
