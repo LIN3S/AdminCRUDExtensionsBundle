@@ -1,5 +1,5 @@
 {
-  "name": "lin3s/admin-crud-extension-bundle",
+  "name": "lin3s/admin-crud-extensions-bundle",
   "description": "CRUD extension for LIN3S-Admin",
   "type": "symfony-bundle",
   "license": "MIT",
