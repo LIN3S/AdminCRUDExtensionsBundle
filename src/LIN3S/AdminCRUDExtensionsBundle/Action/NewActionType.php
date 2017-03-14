@@ -113,7 +113,7 @@ final class NewActionType implements ActionType
         }
 
         return new Response(
-            $this->twig->render('Lin3sAdminBundle:Admin:new.html.twig', [
+            $this->twig->render('Lin3sAdminBundle:Admin:form.html.twig', [
                 'entity'       => $entity,
                 'entityConfig' => $config,
                 'form'         => $form->createView(),
