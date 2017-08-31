@@ -14,6 +14,8 @@ namespace LIN3S\AdminCRUDExtensionsBundle\Action;
 use Doctrine\Common\Persistence\ObjectManager;
 use LIN3S\AdminBundle\Configuration\Model\Entity;
 use LIN3S\AdminBundle\Configuration\Type\ActionType;
+use LIN3S\AdminCRUDExtensionsBundle\Event\EntityRemoved;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -58,23 +60,33 @@ final class DeleteActionType implements ActionType
     private $urlGenerator;
 
     /**
+     * The event dispatcher.
+     *
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
      * DeleteActionType constructor.
      *
-     * @param UrlGeneratorInterface $urlGenerator The url generator
-     * @param ObjectManager         $manager      The manager
-     * @param \Twig_Environment     $twig         The twig instance
-     * @param Session               $session      The session
+     * @param UrlGeneratorInterface    $urlGenerator The url generator
+     * @param ObjectManager            $manager      The manager
+     * @param \Twig_Environment        $twig         The twig instance
+     * @param Session                  $session      The session
+     * @param EventDispatcherInterface $dispatcher   The event dispatcher
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ObjectManager $manager,
         \Twig_Environment $twig,
-        Session $session
+        Session $session,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->manager = $manager;
         $this->twig = $twig;
         $this->session = $session;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -82,7 +94,7 @@ final class DeleteActionType implements ActionType
      */
     public function execute($entity, Entity $config, Request $request, $options = null)
     {
-        $id = $this->getEntityId($entity, $config);
+        $id = (string) $this->getEntityId($entity, $config);
         $repository = $this->manager->getRepository($config->className());
         $entity = $repository->find($id);
 
@@ -92,6 +104,8 @@ final class DeleteActionType implements ActionType
 
         $this->manager->remove($entity);
         $this->manager->flush();
+
+        $this->dispatcher->dispatch(EntityRemoved::name(), new EntityRemoved($id, $config->className()));
 
         $this->session->getFlashBag()->add(
             'lin3s_admin_success',
