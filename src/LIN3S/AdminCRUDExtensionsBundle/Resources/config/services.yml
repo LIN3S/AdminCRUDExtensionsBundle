@@ -32,7 +32,6 @@ services:
         class: LIN3S\AdminCRUDExtensionsBundle\Action\DeleteActionType
         arguments:
             - '@router'
-            - '@doctrine.orm.default_entity_manager'
             - '@twig'
             - '@session'
             - '@event_dispatcher'
